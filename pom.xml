@@ -5,7 +5,7 @@
 
     <groupId>org.outerj.daisy</groupId>
     <artifactId>daisydiff</artifactId>
-    <version>1.2-modn1-SNAPSHOT</version>
+    <version>1.2-modn-1-SNAPSHOT</version>
     <name>Daisydiff</name>
     <description>
         A Java library to compare HTML files.
@@ -27,14 +27,14 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.cyberneko</groupId>
-                <artifactId>html</artifactId>
+                <groupId>net.sourceforge.nekohtml</groupId>
+                <artifactId>nekohtml</artifactId>
                 <version>1.9.8</version>
             </dependency>
             <dependency>
-                <groupId>org.eclipse.core.runtime</groupId>
-                <artifactId>eclipse-core-runtime</artifactId>
-                <version>20070801</version>
+                <groupId>org.eclipse.core</groupId>
+                <artifactId>org.eclipse.core.runtime</artifactId>
+                <version>3.7.0</version>
             </dependency>
             <dependency>
                 <groupId>xerces</groupId>
@@ -50,14 +50,13 @@
     </dependencyManagement>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.cyberneko</groupId>
-            <artifactId>html</artifactId>
+            <groupId>net.sourceforge.nekohtml</groupId>
+            <artifactId>nekohtml</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.core.runtime</groupId>
-            <artifactId>eclipse-core-runtime</artifactId>
+            <groupId>org.eclipse.core</groupId>
+            <artifactId>org.eclipse.core.runtime</artifactId>
         </dependency>
         <dependency>
             <groupId>xerces</groupId>
@@ -70,44 +69,14 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.17</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>2.4.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -116,6 +85,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
@@ -123,6 +93,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.17</version>
                 <executions>
                     <execution>
                         <id>allTests</id>
@@ -146,102 +117,26 @@
                 </configuration>
             </plugin>
             <plugin>
-                <artifactId>maven-shade-plugin</artifactId>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.0.4</version>
                 <executions>
                     <execution>
-                        <id>shade</id>
-                        <phase>package</phase>
+                        <id>attach-sources</id>
                         <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <!-- merge services files -->
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer"/>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>org.outerj.daisy.diff.Main</mainClass>
-                                </transformer>
-
-                            </transformers>
-                            <createDependencyReducedPom>true</createDependencyReducedPom>
-                            <shadedArtifactAttached>true</shadedArtifactAttached>
-                            <shadedClassifierName>shaded</shadedClassifierName>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.eclipse.core.runtime:eclipse-core-runtime</include>
-                                </includes>
-                            </artifactSet>
-                            <filters>
-                                <filter>
-                                    <artifact>*:*</artifact>
-                                    <excludes>
-                                        <exclude>META-INF/*.SF</exclude>
-                                        <exclude>META-INF/*.DSA</exclude>
-                                        <exclude>META-INF/*.RSA</exclude>
-                                    </excludes>
-                                </filter>
-                            </filters>
-                            <relocations>
-                                <relocation>
-                                    <pattern>org/eclipse/core</pattern>
-                                    <shadedPattern>hidden/org/eclipse/core</shadedPattern>
-                                </relocation>
-                            </relocations>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
+                            <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.outerj.daisy.diff.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
             </plugin>
-
         </plugins>
     </build>
 
     <repositories>
         <repository>
-            <id>public</id>
-            <url>http://maven.nuxeo.org/nexus/content/groups/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>public-snapshot</id>
-            <url>http://maven.nuxeo.org/nexus/content/groups/public-snapshot</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <id>remote-repos</id>
+            <name>remote-repos</name>
+            <url>http://10.103.0.27:8080/artifactory/remote-repos/</url>
         </repository>
         <repository>
             <id>snapshot-maven-repository</id>
