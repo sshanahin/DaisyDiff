@@ -1,5 +1,7 @@
 This is a maintenance project of DaisyDiff in Java. The initial commit is a checkout of version 1.2 of [old DaisyDiff project](https://code.google.com/archive/p/daisydiff).
 
+Added a simple diff option with included default css for embedded mode
+
 For more documentation see [daisydiff.github.io](https://daisydiff.github.io/).
 
 # Standalone usage
@@ -53,3 +55,4 @@ The DaisyDiff algorithm has been integrated in MediaWiki. However, it had major 
  * Daniel Dickison
  * Antoine Taillefer
  * Thomas Roger
+ * Sergey Shanahin
