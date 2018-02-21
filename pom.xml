@@ -5,7 +5,7 @@
 
     <groupId>org.outerj.daisy</groupId>
     <artifactId>daisydiff</artifactId>
-    <version>1.2-modn-1</version>
+    <version>1.2-modn-2-SNAPSHOT</version>
     <name>Daisydiff</name>
     <description>
         A Java library to compare HTML files.
@@ -131,24 +131,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <repository>
-            <id>remote-repos</id>
-            <name>remote-repos</name>
-            <url>http://10.103.0.27:8080/artifactory/remote-repos/</url>
-        </repository>
-        <repository>
-            <id>snapshot-maven-repository</id>
-            <name>maven-snapshot</name>
-            <url>http://10.103.0.27:8080/artifactory/libs-snapshot-local</url>
-        </repository>
-        <repository>
-            <id>release-maven-repository</id>
-            <name>maven-release</name>
-            <url>http://10.103.0.27:8080/artifactory/libs-release-local</url>
-        </repository>
-    </repositories>
-
-
 </project>
